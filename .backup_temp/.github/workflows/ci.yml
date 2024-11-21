@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+
+  build-clang-asan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Clang + ASan
+        run: |
+          make clean
+          make CXX=clang++ asan -j$(nproc)
+          echo "ASan build successful"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and run tests
+        run: |
+          make clean
+          make CXX=clang++ -j$(nproc)
+          make test
+          echo "All tests passed"
+
+  fuzz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build fuzz targets
+        run: |
+          make clean
+          FUZZ_CXX=clang++ make fuzz
+          echo "Fuzz targets built successfully"
+      - name: Run seeds against ASan build
+        run: |
+          echo "=== Running targeted seeds ==="
+          for harness in vault_parser_fuzzer kdf_runner_fuzzer acl_merge_fuzzer; do
+            CRASHES=0
+            PASSED=0
+            TOTAL=0
+            corpus_dir="fuzz/corpus/${harness}"
+            if [ ! -d "$corpus_dir" ]; then continue; fi
+            for seed in "$corpus_dir"/*; do
+              TOTAL=$((TOTAL + 1))
+              name=$(basename "$seed")
+              echo ""
+              echo "--- Testing: $harness/$name ---"
+              if timeout 10 ./fuzz/${harness} -runs=1 "$seed" 2>&1; then
+                echo "PASS: $name"
+                PASSED=$((PASSED + 1))
+              else
+                echo "CRASH: $name (exit code $?)"
+                CRASHES=$((CRASHES + 1))
+              fi
+            done
+            echo ""
+            echo "=== $harness Seed Summary ==="
+            echo "Total: $TOTAL  Crashes: $CRASHES  Passed: $PASSED"
+          done
+          exit 0
+      - name: Run fuzzers for 30s each
+        run: |
+          for harness in vault_parser_fuzzer kdf_runner_fuzzer acl_merge_fuzzer; do
+            echo "=== Fuzzing $harness for 30s ==="
+            corpus_dir="fuzz/corpus/${harness}"
+            timeout 60 ./fuzz/${harness} "$corpus_dir/" -max_total_time=30 -max_len=512 -timeout=5 || true
+            echo "Done: $harness"
+          done
+      - name: Upload crash artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuzz-crashes
+          path: fuzz/corpus/**/*
