@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
 
 #define ARENA_MAX_POOLS        16
 #define ARENA_POOL_SLOT_SIZE   4096

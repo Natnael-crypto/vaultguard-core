@@ -6,9 +6,9 @@
 #include "vault/vault_node.hpp"
 #include "allocator/secure_arena.hpp"
 
-#define TREE_MAX_DEPTH      32
-#define TREE_MAX_NODES      4096
-#define TREE_PATH_SEPARATOR '/'
+#define TREE_MAX_DEPTH         32
+#define TREE_MAX_NODES         4096
+#define TREE_PATH_SEPARATOR    '/'
 
 struct VaultIterator {
     VaultNode  *current_node;
