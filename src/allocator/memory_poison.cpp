@@ -1,4 +1,5 @@
 #include "allocator/memory_poison.hpp"
+#include "allocator/secure_arena.hpp"
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
