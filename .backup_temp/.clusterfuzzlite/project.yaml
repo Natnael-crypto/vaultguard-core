@@ -1,8 +1,0 @@
-language: c++
-sanitizers:
-  - address
-  - undefined
-fuzz_targets:
-  - vault_parser_fuzzer
-  - kdf_runner_fuzzer
-  - acl_merge_fuzzer
