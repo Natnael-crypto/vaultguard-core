@@ -1,6 +1,7 @@
 #include "session/lru_cache.hpp"
 #include <cstdlib>
 #include <cstring>
+#include <cstdio>
 
 void lru_init(LRUCache *cache, int capacity) {
     memset(cache, 0, sizeof(LRUCache));

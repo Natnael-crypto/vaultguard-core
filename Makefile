@@ -1,5 +1,5 @@
 CXX      ?= g++
-CXXFLAGS ?= -Wall -Wextra -std=c++20 -g -O0 -Wno-unused-parameter -Wno-unused-variable
+CXXFLAGS ?= -Wall -Wextra -std=c++20 -g -O0 -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-tautological-bitwise-compare
 CXXFLAGS += -Iinclude
 LDFLAGS  ?= -lpthread
 
@@ -71,8 +71,8 @@ asan: LDFLAGS += -fsanitize=address,undefined
 asan: clean $(TARGET)
 
 FUZZ_CXX ?= clang++
-FUZZ_CXXFLAGS = -fsanitize=address,undefined -fno-omit-frame-pointer -g -O1 -std=c++20 -Iinclude
-FUZZ_FUZZ_CXXFLAGS = -fsanitize=fuzzer,address,undefined -g -O1 -std=c++20 -Iinclude
+FUZZ_CXXFLAGS = -fsanitize=address,undefined -fno-omit-frame-pointer -g -O1 -std=c++20 -Iinclude -Wno-unused-function -Wno-tautological-bitwise-compare
+FUZZ_FUZZ_CXXFLAGS = -fsanitize=fuzzer,address,undefined -g -O1 -std=c++20 -Iinclude -Wno-unused-function -Wno-tautological-bitwise-compare
 
 FUZZ_OBJ_LIST = $(patsubst %.cpp,$(FUZZ_DIR)/%.o,$(notdir $(LIB_SRCS)))
 
