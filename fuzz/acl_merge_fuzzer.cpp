@@ -4,16 +4,8 @@
 #include <cstring>
 #include <cstdio>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "vault/acl_engine.hpp"
 #include "crypto/bigint.hpp"
-
-#ifdef __cplusplus
-}
-#endif
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     if (size < 8) return 0;

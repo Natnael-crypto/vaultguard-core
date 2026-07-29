@@ -4,10 +4,6 @@
 #include <cstring>
 #include <cstdio>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "allocator/secure_arena.hpp"
 #include "crypto/cipher_stream.hpp"
 #include "crypto/kdf_engine.hpp"
@@ -15,10 +11,6 @@ extern "C" {
 #include "crypto/bigint.hpp"
 #include "session/key_rotation.hpp"
 #include "session/session_manager.hpp"
-
-#ifdef __cplusplus
-}
-#endif
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     if (size < 12) return 0;

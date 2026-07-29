@@ -4,20 +4,12 @@
 #include <cstring>
 #include <cstdio>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "allocator/secure_arena.hpp"
 #include "tlv/tlv_decoder.hpp"
 #include "tlv/tlv_encoder.hpp"
 #include "vault/vault_node.hpp"
 #include "vault/vault_tree.hpp"
 #include "vault/vault_alias.hpp"
-
-#ifdef __cplusplus
-}
-#endif
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     if (size < 8) return 0;
