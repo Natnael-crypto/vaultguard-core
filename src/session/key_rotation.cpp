@@ -1,4 +1,5 @@
 #include "session/key_rotation.hpp"
+#include "allocator/secure_arena.hpp"
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
