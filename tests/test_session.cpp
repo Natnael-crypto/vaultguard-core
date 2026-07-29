@@ -9,8 +9,8 @@ void test_lru() {
     LRUCache cache;
     lru_init(&cache, 10);
 
-    char val1[] = "value1";
-    char val2[] = "value2";
+    char *val1 = strdup("value1");
+    char *val2 = strdup("value2");
 
     assert(lru_put(&cache, "key1", val1, 7) == 0);
     assert(lru_put(&cache, "key2", val2, 7) == 0);
