@@ -1,5 +1,6 @@
 #include "crypto/cert_parser.hpp"
 #include "allocator/secure_arena.hpp"
+#include "tlv/tlv_decoder.hpp"
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
