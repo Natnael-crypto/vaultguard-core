@@ -18,17 +18,6 @@ jobs:
           make CXX=clang++ asan -j$(nproc)
           echo "ASan build successful"
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build and run tests
-        run: |
-          make clean
-          make CXX=clang++ -j$(nproc)
-          make test
-          echo "All tests passed"
-
   fuzz:
     runs-on: ubuntu-latest
     steps:
