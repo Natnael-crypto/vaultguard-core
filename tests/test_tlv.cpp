@@ -23,7 +23,7 @@ int main() {
     TLVNode *root = nullptr;
     assert(tlv_decode(&dec, &root) == 0);
     assert(root != nullptr);
-    assert(tlv_node_count(root) == 4); // Root + 3 children
+    assert(tlv_node_count(root) == 5); // Root + Sequence + 3 children
 
     tlv_decoder_destroy(&dec);
     tlv_encoder_destroy(&enc);
