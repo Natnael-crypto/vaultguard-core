@@ -7,12 +7,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(LIB_SOURCES
     src/allocator/secure_arena.cpp
     src/allocator/memory_poison.cpp
+    src/allocator/secure_random.cpp
     src/crypto/bigint.cpp
+    src/crypto/sha256.cpp
     src/crypto/cipher_stream.cpp
     src/crypto/cert_parser.cpp
     src/crypto/kdf_engine.cpp
     src/session/key_rotation.cpp
     src/session/lru_cache.cpp
+    src/session/audit_log.cpp
     src/session/session_manager.cpp
     src/tlv/tlv_decoder.cpp
     src/tlv/tlv_encoder.cpp
@@ -20,6 +23,7 @@ set(LIB_SOURCES
     src/vault/vault_alias.cpp
     src/vault/vault_node.cpp
     src/vault/vault_tree.cpp
+    src/vault/vault_snapshot.cpp
 )
 
 add_library(vaultguard_core ${LIB_SOURCES})

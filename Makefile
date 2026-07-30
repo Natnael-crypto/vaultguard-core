@@ -12,12 +12,15 @@ VAULT_DIR = $(SRC_DIR)/vault
 
 SRCS = $(ALLOC_DIR)/secure_arena.cpp \
        $(ALLOC_DIR)/memory_poison.cpp \
+       $(ALLOC_DIR)/secure_random.cpp \
        $(CRYPTO_DIR)/bigint.cpp \
+       $(CRYPTO_DIR)/sha256.cpp \
        $(CRYPTO_DIR)/cipher_stream.cpp \
        $(CRYPTO_DIR)/cert_parser.cpp \
        $(CRYPTO_DIR)/kdf_engine.cpp \
        $(SESSION_DIR)/key_rotation.cpp \
        $(SESSION_DIR)/lru_cache.cpp \
+       $(SESSION_DIR)/audit_log.cpp \
        $(SESSION_DIR)/session_manager.cpp \
        $(TLV_DIR)/tlv_decoder.cpp \
        $(TLV_DIR)/tlv_encoder.cpp \
@@ -25,6 +28,7 @@ SRCS = $(ALLOC_DIR)/secure_arena.cpp \
        $(VAULT_DIR)/vault_alias.cpp \
        $(VAULT_DIR)/vault_node.cpp \
        $(VAULT_DIR)/vault_tree.cpp \
+       $(VAULT_DIR)/vault_snapshot.cpp \
        $(SRC_DIR)/main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
